@@ -2,75 +2,106 @@ import { useState } from "react";
 
 export default function Calculator() {
   const [result, setResult] = useState(0);
-  const [firstNumber, setFirstNumber] = useState(0);
-  const [number, setNumber] = useState("0");
+  const [number, setNumber] = useState("");
+  const [prevNumber, setPrevNumber] = useState("");
   const [operator, setOperator] = useState("");
-  const [tempNumber, setTempNumber] = useState("0");
 
   const handleClear = () => {
     setNumber("");
     setResult("");
-    setFirstNumber("");
+    setPrevNumber("");
     setOperator("");
-    setTempNumber("0");
   };
 
-  const handleAdd = (e) => {
-    e.preventDefault();
-    setFirstNumber(number);
-    setOperator("+");
-    setNumber("");
-    setTempNumber(number);
-  };
-
-  const handleSubtract = (e) => {
-    e.preventDefault();
-    setFirstNumber(number);
-    setOperator("-");
-    setNumber("");
-    setTempNumber(number);
-  };
-
-  const handleMultiply = (e) => {
-    e.preventDefault();
-    setFirstNumber(number);
-    setOperator("*");
-    setNumber("");
-    setTempNumber(number);
-  };
-
-  const handleDivide = (e) => {
-    e.preventDefault();
-    setFirstNumber(number);
-    setOperator("/");
-    setNumber("");
-    setTempNumber(number);
-  };
-
-  const handleResult = (e) => {
-    e.preventDefault();
-    if (operator === "+") {
-      setResult(parseInt(firstNumber) + parseInt(number));
-    } else if (operator === "-") {
-      setResult(parseInt(firstNumber) - parseInt(number));
-    } else if (operator === "*") {
-      setResult(parseInt(firstNumber) * parseInt(number));
-    } else if (operator === "/") {
-      setResult(parseInt(firstNumber) / parseInt(number));
+  const handleAdd = () => {
+    if (prevNumber) {
+      setOperator("+");
+      setPrevNumber(handleResult);
+      setNumber("");
+    } else if (result) {
+      setOperator("+");
+      setPrevNumber(result);
+      setNumber("");
+    } else {
+      setOperator("+");
+      setPrevNumber(number);
+      setNumber("");
     }
-    setNumber(parseInt(result));
+  };
+
+  const handleSubtract = () => {
+    if (prevNumber) {
+      setOperator("-");
+      setPrevNumber(handleResult);
+      setNumber("");
+    } else if (result) {
+      setOperator("-");
+      setPrevNumber(result);
+      setNumber("");
+    } else {
+      setOperator("-");
+      setPrevNumber(number);
+      setNumber("");
+    }
+  };
+
+  const handleMultiply = () => {
+    if (prevNumber) {
+      setOperator("*");
+      setPrevNumber(handleResult);
+      setNumber("");
+    } else if (result) {
+      setOperator("*");
+      setPrevNumber(result);
+      setNumber("");
+    } else {
+      setOperator("*");
+      setPrevNumber(number);
+      setNumber("");
+    }
+  };
+
+  const handleDivide = () => {
+    if (prevNumber) {
+      setOperator("/");
+      setPrevNumber(handleResult);
+      setNumber("");
+    } else if (result) {
+      setOperator("/");
+      setPrevNumber(result);
+      setNumber("");
+    } else {
+      setOperator("/");
+      setPrevNumber(number);
+      setNumber("");
+    }
+  };
+
+  const handleResult = () => {
+    if (operator === "+") {
+      setResult(parseInt(prevNumber) + parseInt(number));
+    } else if (operator === "-") {
+      setResult(parseInt(prevNumber) - parseInt(number));
+    } else if (operator === "*") {
+      setResult(parseInt(prevNumber) * parseInt(number));
+    } else if (operator === "/") {
+      setResult(parseInt(prevNumber) / parseInt(number));
+    }
+    setNumber("");
+    console.log(prevNumber);
     console.log(number);
   };
+  console.log(result);
 
   return (
     <div className="calculator">
       <div className="calculator-display">
-        {!result ? (!number ? tempNumber : number) : result}
+        {!number ? (!result ? prevNumber : result) : number}
       </div>
       <div className="keypad">
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "1");
           }}
         >
@@ -78,7 +109,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "2");
           }}
         >
@@ -86,7 +117,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "3");
           }}
         >
@@ -97,7 +128,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "4");
           }}
         >
@@ -105,7 +136,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "5");
           }}
         >
@@ -113,7 +144,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "6");
           }}
         >
@@ -124,7 +155,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "7");
           }}
         >
@@ -132,7 +163,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "8");
           }}
         >
@@ -140,7 +171,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "9");
           }}
         >
@@ -151,7 +182,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             handleClear();
           }}
         >
@@ -159,7 +190,7 @@ export default function Calculator() {
         </button>
         <button
           className="button"
-          onClick={(e) => {
+          onClick={() => {
             setNumber(number + "0");
           }}
         >
