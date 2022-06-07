@@ -14,64 +14,48 @@ export default function Calculator() {
   };
 
   const handleAdd = () => {
-    if (prevNumber) {
-      setOperator("+");
+    setOperator("+");
+    if (prevNumber && result) {
+      setPrevNumber(handleNewResult);
+    } else if (prevNumber && !result) {
       setPrevNumber(handleResult);
-      setNumber("");
-    } else if (result) {
-      setOperator("+");
-      setPrevNumber(result);
-      setNumber("");
     } else {
-      setOperator("+");
       setPrevNumber(number);
       setNumber("");
     }
   };
 
   const handleSubtract = () => {
-    if (prevNumber) {
-      setOperator("-");
+    setOperator("-");
+    if (prevNumber && result) {
+      setPrevNumber(handleNewResult);
+    } else if (prevNumber && !result) {
       setPrevNumber(handleResult);
-      setNumber("");
-    } else if (result) {
-      setOperator("-");
-      setPrevNumber(result);
-      setNumber("");
     } else {
-      setOperator("-");
       setPrevNumber(number);
       setNumber("");
     }
   };
 
   const handleMultiply = () => {
-    if (prevNumber) {
-      setOperator("*");
+    setOperator("*");
+    if (prevNumber && result) {
+      setPrevNumber(handleNewResult);
+    } else if (prevNumber && !result) {
       setPrevNumber(handleResult);
-      setNumber("");
-    } else if (result) {
-      setOperator("*");
-      setPrevNumber(result);
-      setNumber("");
     } else {
-      setOperator("*");
       setPrevNumber(number);
       setNumber("");
     }
   };
 
   const handleDivide = () => {
-    if (prevNumber) {
-      setOperator("/");
+    setOperator("/");
+    if (prevNumber && result) {
+      setPrevNumber(handleNewResult);
+    } else if (prevNumber && !result) {
       setPrevNumber(handleResult);
-      setNumber("");
-    } else if (result) {
-      setOperator("/");
-      setPrevNumber(result);
-      setNumber("");
     } else {
-      setOperator("/");
       setPrevNumber(number);
       setNumber("");
     }
@@ -88,10 +72,20 @@ export default function Calculator() {
       setResult(parseInt(prevNumber) / parseInt(number));
     }
     setNumber("");
-    console.log(prevNumber);
-    console.log(number);
   };
-  console.log(result);
+
+  const handleNewResult = () => {
+    if (operator === "+") {
+      setResult(result + parseInt(number));
+    } else if (operator === "-") {
+      setResult(result - parseInt(number));
+    } else if (operator === "*") {
+      setResult(result * parseInt(number));
+    } else if (operator === "/") {
+      setResult(result / parseInt(number));
+    }
+    setNumber("");
+  };
 
   return (
     <div className="calculator">
@@ -123,7 +117,7 @@ export default function Calculator() {
         >
           3
         </button>
-        <button className="button" onClick={handleAdd}>
+        <button className="op-button" onClick={handleAdd}>
           +
         </button>
         <button
@@ -150,7 +144,7 @@ export default function Calculator() {
         >
           6
         </button>
-        <button className="button" onClick={handleSubtract}>
+        <button className="op-button" onClick={handleSubtract}>
           -
         </button>
         <button
@@ -177,11 +171,11 @@ export default function Calculator() {
         >
           9
         </button>
-        <button className="button" onClick={handleMultiply}>
+        <button className="op-button" onClick={handleMultiply}>
           x
         </button>
         <button
-          className="button"
+          className="op-button"
           onClick={() => {
             handleClear();
           }}
@@ -196,10 +190,10 @@ export default function Calculator() {
         >
           0
         </button>
-        <button className="button" onClick={handleResult}>
+        <button className="op-button" onClick={handleResult}>
           =
         </button>
-        <button className="button" onClick={handleDivide}>
+        <button className="op-button" onClick={handleDivide}>
           /
         </button>
       </div>
