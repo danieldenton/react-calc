@@ -13,54 +13,6 @@ export default function Calculator() {
     setOperator("");
   };
 
-  const handleAdd = () => {
-    setOperator("+");
-    if (prevNumber && result) {
-      setPrevNumber(handleNewResult);
-    } else if (prevNumber && !result) {
-      setPrevNumber(handleResult);
-    } else {
-      setPrevNumber(number);
-      setNumber("");
-    }
-  };
-
-  const handleSubtract = () => {
-    setOperator("-");
-    if (prevNumber && result) {
-      setPrevNumber(handleNewResult);
-    } else if (prevNumber && !result) {
-      setPrevNumber(handleResult);
-    } else {
-      setPrevNumber(number);
-      setNumber("");
-    }
-  };
-
-  const handleMultiply = () => {
-    setOperator("*");
-    if (prevNumber && result) {
-      setPrevNumber(handleNewResult);
-    } else if (prevNumber && !result) {
-      setPrevNumber(handleResult);
-    } else {
-      setPrevNumber(number);
-      setNumber("");
-    }
-  };
-
-  const handleDivide = () => {
-    setOperator("/");
-    if (prevNumber && result) {
-      setPrevNumber(handleNewResult);
-    } else if (prevNumber && !result) {
-      setPrevNumber(handleResult);
-    } else {
-      setPrevNumber(number);
-      setNumber("");
-    }
-  };
-
   const handleResult = () => {
     if (operator === "+") {
       setResult(parseInt(prevNumber) + parseInt(number));
@@ -85,6 +37,18 @@ export default function Calculator() {
       setResult(result / parseInt(number));
     }
     setNumber("");
+  };
+
+  const handleOperation = (operator) => {
+    setOperator(operator);
+    if (prevNumber && result) {
+      setPrevNumber(handleNewResult);
+    } else if (prevNumber && !result) {
+      setPrevNumber(handleResult);
+    } else {
+      setPrevNumber(number);
+      setNumber("");
+    }
   };
 
   return (
@@ -117,7 +81,12 @@ export default function Calculator() {
         >
           3
         </button>
-        <button className="op-button" onClick={handleAdd}>
+        <button
+          className="op-button"
+          onClick={() => {
+            handleOperation("+");
+          }}
+        >
           +
         </button>
         <button
@@ -144,7 +113,12 @@ export default function Calculator() {
         >
           6
         </button>
-        <button className="op-button" onClick={handleSubtract}>
+        <button
+          className="op-button"
+          onClick={() => {
+            handleOperation("-");
+          }}
+        >
           -
         </button>
         <button
@@ -171,7 +145,12 @@ export default function Calculator() {
         >
           9
         </button>
-        <button className="op-button" onClick={handleMultiply}>
+        <button
+          className="op-button"
+          onClick={() => {
+            handleOperation("*");
+          }}
+        >
           x
         </button>
         <button
@@ -193,7 +172,12 @@ export default function Calculator() {
         <button className="op-button" onClick={handleResult}>
           =
         </button>
-        <button className="op-button" onClick={handleDivide}>
+        <button
+          className="op-button"
+          onClick={() => {
+            handleOperation("/");
+          }}
+        >
           /
         </button>
       </div>
