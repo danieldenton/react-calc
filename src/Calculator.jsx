@@ -26,24 +26,9 @@ export default function Calculator() {
     setNumber("");
   };
 
-  const handleNewResult = () => {
-    if (operator === "+") {
-      setResult(result + parseInt(number));
-    } else if (operator === "-") {
-      setResult(result - parseInt(number));
-    } else if (operator === "*") {
-      setResult(result * parseInt(number));
-    } else if (operator === "/") {
-      setResult(result / parseInt(number));
-    }
-    setNumber("");
-  };
-
   const handleOperation = (operator) => {
     setOperator(operator);
-    if (prevNumber && result) {
-      setPrevNumber(handleNewResult);
-    } else if (prevNumber && !result) {
+    if (prevNumber) {
       setPrevNumber(handleResult);
     } else {
       setPrevNumber(number);
