@@ -1,51 +1,18 @@
 import { useState } from "react";
 
 export default function Calculator() {
-  const [result, setResult] = useState(0);
-  const [number, setNumber] = useState(0);
-  const [prevNumber, setPrevNumber] = useState("");
-  const [operator, setOperator] = useState("");
-
-  const handleClear = () => {
-    setNumber("");
-    setResult("");
-    setPrevNumber("");
-    setOperator("");
-  };
-
-  const handleResult = () => {
-    if (operator === "+") {
-      setResult(parseInt(prevNumber) + parseInt(number));
-    } else if (operator === "-") {
-      setResult(parseInt(prevNumber) - parseInt(number));
-    } else if (operator === "*") {
-      setResult(parseInt(prevNumber) * parseInt(number));
-    } else if (operator === "/") {
-      setResult(parseInt(prevNumber) / parseInt(number));
-    }
-    setNumber("");
-  };
-  console.log(result);
-
-  const handleOperation = (operator) => {
-    setOperator(operator);
-    if (prevNumber) {
-      setPrevNumber(handleResult);
-    } else {
-      setPrevNumber(parseInt(number));
-      setNumber("");
-    }
-  };
+  const [exp, setExp] = useState("");
+  const [result, setResult] = useState("");
+  const [number, setNumber] = useState("");
 
   return (
     <div className="calculator">
-      <div className="calculator-display">
-        {!number ? (!result ? prevNumber : result) : number}
-      </div>
+      <div className="calculator-display">{!number ? result : number}</div>
       <div className="keypad">
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "1");
             setNumber(number + "1");
           }}
         >
@@ -54,6 +21,7 @@ export default function Calculator() {
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "2");
             setNumber(number + "2");
           }}
         >
@@ -62,6 +30,7 @@ export default function Calculator() {
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "3");
             setNumber(number + "3");
           }}
         >
@@ -70,7 +39,9 @@ export default function Calculator() {
         <button
           className="op-button"
           onClick={() => {
-            handleOperation("+");
+            setExp(exp + "+");
+            setResult(eval(exp));
+            setNumber("");
           }}
         >
           +
@@ -78,6 +49,7 @@ export default function Calculator() {
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "4");
             setNumber(number + "4");
           }}
         >
@@ -86,6 +58,7 @@ export default function Calculator() {
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "5");
             setNumber(number + "5");
           }}
         >
@@ -94,6 +67,7 @@ export default function Calculator() {
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "6");
             setNumber(number + "6");
           }}
         >
@@ -102,7 +76,9 @@ export default function Calculator() {
         <button
           className="op-button"
           onClick={() => {
-            handleOperation("-");
+            setExp(exp + "-");
+            setResult(eval(exp));
+            setNumber("");
           }}
         >
           -
@@ -110,6 +86,7 @@ export default function Calculator() {
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "7");
             setNumber(number + "7");
           }}
         >
@@ -118,6 +95,7 @@ export default function Calculator() {
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "8");
             setNumber(number + "8");
           }}
         >
@@ -126,6 +104,7 @@ export default function Calculator() {
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "9");
             setNumber(number + "9");
           }}
         >
@@ -134,7 +113,9 @@ export default function Calculator() {
         <button
           className="op-button"
           onClick={() => {
-            handleOperation("*");
+            setExp(exp + "*");
+            setResult(eval(exp));
+            setNumber("");
           }}
         >
           x
@@ -142,7 +123,9 @@ export default function Calculator() {
         <button
           className="op-button"
           onClick={() => {
-            handleClear();
+            setExp("");
+            setNumber("");
+            setResult("");
           }}
         >
           C
@@ -150,18 +133,25 @@ export default function Calculator() {
         <button
           className="button"
           onClick={() => {
+            setExp(exp + "0");
             setNumber(number + "0");
           }}
         >
           0
         </button>
-        <button className="op-button" onClick={handleResult}>
+        <button
+          className="op-button"
+          onClick={() => {
+            setResult(eval(exp));
+            setNumber("");
+          }}
+        >
           =
         </button>
         <button
           className="op-button"
           onClick={() => {
-            handleOperation("/");
+            setExp(exp + "/");
           }}
         >
           /
@@ -170,3 +160,39 @@ export default function Calculator() {
     </div>
   );
 }
+
+// const [result, setResult] = useState(0);
+// const [number, setExp] = useState(0);
+// const [prevNumber, setPrevNumber] = useState("");
+// const [operator, setOperator] = useState("");
+
+// const handleClear = () => {
+// setExp("");
+// setResult("");
+// setPrevNumber("");
+// setOperator("");
+// };
+
+// const handleResult = () => {
+//   if (operator === "+") {
+//     setResult(parseInt(prevNumber) + parseInt(number));
+//   } else if (operator === "-") {
+//     setResult(parseInt(prevNumber) - parseInt(number));
+//   } else if (operator === "*") {
+//     setResult(parseInt(prevNumber) * parseInt(number));
+//   } else if (operator === "/") {
+//     setResult(parseInt(prevNumber) / parseInt(number));
+//   }
+//   setExp("");
+// };
+// console.log(result);
+
+// const setExp = (operator) => {
+//   setOperator(operator);
+//   if (prevNumber) {
+//     setPrevNumber(handleResult);
+//   } else {
+//     setPrevNumber(parseInt(number));
+//     setExp("");
+//   }
+// };
